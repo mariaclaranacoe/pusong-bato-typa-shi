@@ -3,9 +3,13 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>pusong bato ❤️</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Heart ❤️</title>
 
 
     <style>
@@ -43,8 +47,21 @@
 
         .heart-container {
 
-            width: 500px;
-            height: 500px;
+            /*
+                Responsive size.
+
+                Desktop:
+                maximum 500px
+
+                Phone:
+                90% of screen width
+            */
+            width: min(500px, 90vw);
+
+            /*
+                Always keep it square.
+            */
+            aspect-ratio: 1 / 1;
 
             position: relative;
         }
@@ -58,27 +75,29 @@
 
             position: absolute;
 
+            top: 0;
+            left: 0;
+
             width: 100%;
             height: 100%;
 
+            /*
+                Keep the video filling
+                the square container.
+            */
             object-fit: cover;
 
             /*
-                Use the SVG clip path.
-
-                This makes the video actually
-                take the shape of the heart.
+                The SAME heart shape is
+                used to clip the video.
             */
             clip-path: url(#heartClip);
 
             /*
-                Completely invisible at first.
+                Invisible initially.
             */
             opacity: 0;
 
-            /*
-                Fade in.
-            */
             transition: opacity 2s ease;
 
             pointer-events: none;
@@ -87,10 +106,6 @@
         }
 
 
-        /*
-            Video becomes visible after
-            the heart is finished.
-        */
         #heart-video.show {
 
             opacity: 1;
@@ -101,9 +116,12 @@
            HEART SVG
         ========================= */
 
-        svg {
+        #heart-svg {
 
             position: absolute;
+
+            top: 0;
+            left: 0;
 
             width: 100%;
             height: 100%;
@@ -129,19 +147,18 @@
             stroke-width: 5;
 
             stroke-linecap: round;
+
             stroke-linejoin: round;
 
             /*
-                Hidden initially.
+                Hidden before clicking.
             */
             stroke-dasharray: 1000;
+
             stroke-dashoffset: 1000;
 
             visibility: hidden;
 
-            /*
-                Glow.
-            */
             filter:
                 drop-shadow(0 0 5px #ff4f81)
                 drop-shadow(0 0 15px #ff4f81);
@@ -149,8 +166,8 @@
 
 
         /*
-            When animation starts,
-            make the heart visible.
+            Show the heart after
+            the user clicks.
         */
         #heart.start {
 
@@ -169,20 +186,18 @@
 
 
         /* =========================
-           CLICK MESSAGE
+           START MESSAGE
         ========================= */
 
         #start-message {
 
             position: fixed;
 
-            /*
-                Exact center.
-            */
             top: 50%;
             left: 50%;
 
-            transform: translate(-50%, -50%);
+            transform:
+                translate(-50%, -50%);
 
             color: white;
 
@@ -194,6 +209,8 @@
 
             letter-spacing: 1px;
 
+            text-align: center;
+
             opacity: 0.85;
 
             pointer-events: none;
@@ -201,32 +218,20 @@
             transition: opacity 0.5s ease;
 
             z-index: 10;
+
+            /*
+                Prevent text from wrapping
+                strangely on small screens.
+            */
+            white-space: nowrap;
         }
 
 
-        /*
-            Hide the message after clicking.
-        */
         #start-message.hide {
 
             opacity: 0;
         }
 
-
-        /* =========================
-           INVISIBLE SVG USED FOR
-           THE VIDEO CLIPPING
-        ========================= */
-
-        #clip-svg {
-
-            position: absolute;
-
-            width: 0;
-            height: 0;
-
-            overflow: hidden;
-        }
 
     </style>
 
@@ -236,13 +241,9 @@
 <body>
 
 
-    <!--
-        =========================
-        CLICK MESSAGE
-        =========================
-
-        This is centered on the screen.
-    -->
+    <!-- =========================
+         START MESSAGE
+    ========================= -->
 
     <div id="start-message">
         Click anywhere ❤️
@@ -250,58 +251,16 @@
 
 
 
-    <!--
-        =========================
-        VIDEO CLIP PATH
-        =========================
-
-        This SVG defines the actual
-        heart shape used to cut the video.
-    -->
-
-    <svg id="clip-svg">
-
-        <defs>
-
-            <clipPath
-                id="heartClip"
-                clipPathUnits="userSpaceOnUse"
-            >
-
-                <path
-                    d="
-                        M 250 150
-                        C 180 70, 60 100, 60 210
-                        C 60 300, 150 350, 250 440
-                        C 350 350, 440 300, 440 210
-                        C 440 100, 320 70, 250 150
-                        Z
-                    "
-                />
-
-            </clipPath>
-
-        </defs>
-
-    </svg>
-
-
-
-    <!--
-        =========================
-        HEART CONTAINER
-        =========================
-    -->
+    <!-- =========================
+         HEART CONTAINER
+    ========================= -->
 
     <div class="heart-container">
 
 
-        <!--
-            VIDEO
-
-            Put video.mp4 in the same
-            folder as index.html.
-        -->
+        <!-- =========================
+             VIDEO
+        ========================= -->
 
         <video
             id="heart-video"
@@ -313,29 +272,100 @@
 
 
 
-        <!--
-            =========================
-            HEART OUTLINE
-            =========================
-        -->
+        <!-- =========================
+             HEART SVG
+        ========================= -->
 
-        <svg viewBox="0 0 500 500">
+        <svg
+            id="heart-svg"
+            viewBox="0 0 500 500"
+            preserveAspectRatio="xMidYMid meet"
+        >
 
+
+            <!--
+                =========================
+                VIDEO CLIPPING
+                =========================
+
+                IMPORTANT:
+
+                The coordinates here are
+                normalized from 0 to 1.
+
+                This allows the heart shape
+                to scale with the video on
+                BOTH desktop and mobile.
+            -->
+
+            <defs>
+
+                <clipPath
+                    id="heartClip"
+                    clipPathUnits="objectBoundingBox"
+                >
+
+                    <path
+                        d="
+                            M 0.5 0.3
+
+                            C 0.36 0.14,
+                              0.12 0.20,
+                              0.12 0.42
+
+                            C 0.12 0.60,
+                              0.30 0.70,
+                              0.50 0.88
+
+                            C 0.70 0.70,
+                              0.88 0.60,
+                              0.88 0.42
+
+                            C 0.88 0.20,
+                              0.64 0.14,
+                              0.50 0.30
+
+                            Z
+                        "
+                    />
+
+                </clipPath>
+
+            </defs>
+
+
+
+            <!-- =========================
+                 HEART OUTLINE
+            ========================= -->
 
             <path
                 id="heart"
                 d="
                     M 250 150
-                    C 180 70, 60 100, 60 210
-                    C 60 300, 150 350, 250 440
-                    C 350 350, 440 300, 440 210
-                    C 440 100, 320 70, 250 150
+
+                    C 180 70,
+                      60 100,
+                      60 210
+
+                    C 60 300,
+                      150 350,
+                      250 440
+
+                    C 350 350,
+                      440 300,
+                      440 210
+
+                    C 440 100,
+                      320 70,
+                      250 150
                 "
             />
 
 
+
             <!--
-                Dot is hidden using CSS.
+                Hidden dot.
             -->
 
             <circle
@@ -344,6 +374,7 @@
                 cx="250"
                 cy="150"
             />
+
 
         </svg>
 
@@ -373,7 +404,7 @@
 
 
         // =========================
-        // GET HEART PATH LENGTH
+        // HEART PATH LENGTH
         // =========================
 
         const pathLength =
@@ -420,7 +451,7 @@
 
 
             // =========================
-            // DRAW THE HEART
+            // DRAW HEART
             // =========================
 
             heart.style.strokeDasharray =
@@ -474,23 +505,17 @@
 
 
         // =========================
-        // WHEN HEART IS FINISHED
+        // HEART FINISHED
         // =========================
 
         function heartFinished() {
 
 
-            /*
-                Wait half a second
-                before showing the video.
-            */
-
             setTimeout(() => {
 
 
                 /*
-                    Restart video from
-                    the beginning.
+                    Restart video.
                 */
 
                 video.currentTime = 0;
@@ -504,7 +529,7 @@
 
 
                 /*
-                    Fade the video in.
+                    Fade video in.
                 */
 
                 video.classList.add("show");
@@ -526,7 +551,7 @@
 
 
                 /*
-                    Hide "Click anywhere ❤️"
+                    Hide message.
                 */
 
                 startMessage.classList.add("hide");
@@ -534,7 +559,7 @@
 
 
                 /*
-                    Make the heart visible.
+                    Show heart.
                 */
 
                 heart.classList.add("start");
@@ -542,11 +567,10 @@
 
 
                 /*
-                    Start the video silently.
-
-                    This allows the browser to
-                    recognize the video as being
-                    started by the user's click.
+                    Start video silently
+                    because the browser needs
+                    a user interaction before
+                    allowing media playback.
                 */
 
                 video.volume = 0;
@@ -558,7 +582,7 @@
 
 
                 /*
-                    Start drawing the heart.
+                    Start heart animation.
                 */
 
                 requestAnimationFrame(animate);
