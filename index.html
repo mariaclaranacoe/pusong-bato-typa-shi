@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -9,48 +10,310 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>My Heart ❤️</title>
-
+    <title>
+        Happy Birthday sexbomb Carla & Karen
+    </title>
 
     <style>
 
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
         }
 
         body {
 
             min-height: 100vh;
 
-            background: #0d0d18;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
             overflow: hidden;
 
-            cursor: pointer;
-        }
+            background: #0d0d18;
 
-        .heart-container {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
-            width: min(500px, 90vw);
+            display: flex;
 
-            /*
-                Always keep it square.
-            */
-            aspect-ratio: 1 / 1;
+            justify-content: center;
+
+            align-items: center;
 
             position: relative;
         }
 
+        #background-photo {
 
-        /* =========================
-           VIDEO
-        ========================= */
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: 0;
+
+            transition:
+                opacity 2s ease;
+
+            z-index: 0;
+
+            pointer-events: none;
+        }
+
+        #background-photo.show {
+
+            opacity: 1;
+        }
+
+        #background-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background:
+                rgba(0, 0, 0, 0.30);
+
+            opacity: 0;
+
+            transition:
+                opacity 2s ease;
+
+            z-index: 0;
+
+            pointer-events: none;
+        }
+
+        #background-overlay.show {
+
+            opacity: 1;
+        }
+
+        #floating-hearts {
+
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+            opacity: 0;
+
+            transition:
+                opacity 2s ease;
+
+            z-index: 1;
+        }
+
+        #floating-hearts.show {
+
+            opacity: 1;
+        }
+
+        .floating-heart {
+
+            position: absolute;
+
+            bottom: -60px;
+
+            color: #ff7fa3;
+
+            font-size: 25px;
+
+            opacity: 0;
+
+            filter:
+                drop-shadow(
+                    0 0 5px #ff4f81
+                );
+
+            animation:
+                floatUp
+                linear
+                infinite;
+        }
+
+        @keyframes floatUp {
+
+            0% {
+
+                transform:
+                    translateY(0)
+                    translateX(0)
+                    rotate(0deg)
+                    scale(0.8);
+
+                opacity: 0;
+            }
+
+            10% {
+
+                opacity: 0.8;
+            }
+
+            50% {
+
+                transform:
+                    translateY(-50vh)
+                    translateX(30px)
+                    rotate(15deg)
+                    scale(1);
+
+                opacity: 0.7;
+            }
+
+            100% {
+
+                transform:
+                    translateY(-120vh)
+                    translateX(-40px)
+                    rotate(-20deg)
+                    scale(1.2);
+
+                opacity: 0;
+            }
+        }
+
+        .main-content {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            z-index: 2;
+        }
+
+        .birthday-text {
+
+            position: fixed;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 98%;
+
+            text-align: center;
+
+            color: white;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-shadow:
+
+                0 0 8px
+                rgba(255, 105, 150, 0.9),
+
+                0 0 18px
+                rgba(255, 105, 150, 0.7),
+
+                0 0 30px
+                rgba(255, 105, 150, 0.5);
+
+            z-index: 5;
+
+            pointer-events: none;
+        }
+
+        #top-text {
+
+            top: 3%;
+
+            font-size:
+                clamp(
+                    34px,
+                    6vw,
+                    64px
+                );
+        }
+
+        #bottom-text {
+
+            bottom: 3%;
+
+            font-size:
+                clamp(
+                    32px,
+                    5.5vw,
+                    60px
+                );
+        }
+
+        .animated-word {
+
+            display: inline-block;
+
+            margin: 0 7px;
+
+            opacity: 0;
+
+            transform:
+                translateY(25px)
+                scale(0.8);
+
+            transition:
+
+                opacity 0.7s ease,
+
+                transform 0.7s ease;
+        }
+
+        .animated-word.show {
+
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .heart-container {
+
+            position: relative;
+
+            width:
+                min(
+                    650px,
+                    82vw
+                );
+
+            aspect-ratio: 1 / 1;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
 
         #heart-video {
 
@@ -62,40 +325,25 @@
             width: 100%;
             height: 100%;
 
-            /*
-                Keep the video filling
-                the square container.
-            */
             object-fit: cover;
 
-            /*
-                The SAME heart shape is
-                used to clip the video.
-            */
-            clip-path: url(#heartClip);
+            clip-path:
+                url(#heartClip);
 
-            /*
-                Invisible initially.
-            */
             opacity: 0;
 
-            transition: opacity 2s ease;
+            transition:
+                opacity 2s ease;
 
             pointer-events: none;
 
             z-index: 1;
         }
 
-
         #heart-video.show {
 
             opacity: 1;
         }
-
-
-        /* =========================
-           HEART SVG
-        ========================= */
 
         #heart-svg {
 
@@ -109,66 +357,122 @@
 
             overflow: visible;
 
-            z-index: 2;
+            z-index: 3;
 
             pointer-events: none;
         }
-
-
-        /* =========================
-           HEART OUTLINE
-        ========================= */
 
         #heart {
 
             fill: none;
 
-            stroke: #ff4f81;
+            stroke: #ff6f9c;
 
-            stroke-width: 5;
+            stroke-width: 7;
 
             stroke-linecap: round;
 
             stroke-linejoin: round;
 
-            /*
-                Hidden before clicking.
-            */
-            stroke-dasharray: 1000;
-
-            stroke-dashoffset: 1000;
-
-            visibility: hidden;
-
             filter:
-                drop-shadow(0 0 5px #ff4f81)
-                drop-shadow(0 0 15px #ff4f81);
+
+                drop-shadow(
+                    0 0 6px #ff4f81
+                )
+
+                drop-shadow(
+                    0 0 15px
+                    rgba(
+                        255,
+                        79,
+                        129,
+                        0.8
+                    )
+                );
+
+            stroke-dasharray: 0;
+
+            stroke-dashoffset: 0;
+
+            opacity: 0;
         }
 
-
-        /*
-            Show the heart after
-            the user clicks.
-        */
         #heart.start {
 
-            visibility: visible;
+            opacity: 1;
         }
 
+        #friends-message {
 
-        /* =========================
-           MOVING DOT
-        ========================= */
+            position: absolute;
 
-        #dot {
+            top: 50%;
+            left: 50%;
 
-            display: none;
+            transform:
+                translate(-50%, -50%)
+                scale(0.9);
+
+            width: 42%;
+
+            max-width: 210px;
+
+            text-align: center;
+
+            color: white;
+
+            font-size:
+                clamp(
+                    12px,
+                    2vw,
+                    20px
+                );
+
+            line-height: 1.45;
+
+            font-weight: 600;
+
+            letter-spacing: 0.5px;
+
+            opacity: 0;
+
+            transition:
+
+                opacity 0.8s ease,
+
+                transform 0.8s ease;
+
+            z-index: 6;
+
+            pointer-events: none;
+
+            text-shadow:
+
+                0 0 6px
+                rgba(
+                    255,
+                    105,
+                    150,
+                    0.9
+                ),
+
+                0 0 12px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.9
+                );
         }
 
+        #friends-message.show {
 
-        /* =========================
-           START MESSAGE
-        ========================= */
+            opacity: 1;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+        }
 
         #start-message {
 
@@ -182,299 +486,572 @@
 
             color: white;
 
-            font-family: Arial, sans-serif;
-
             font-size: 20px;
 
-            font-weight: 500;
-
-            letter-spacing: 1px;
+            font-weight: 600;
 
             text-align: center;
 
-            opacity: 0.85;
+            padding:
+                18px 28px;
 
-            pointer-events: none;
+            border-radius: 15px;
 
-            transition: opacity 0.5s ease;
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.55
+                );
 
-            z-index: 10;
+            backdrop-filter:
+                blur(5px);
 
-            /*
-                Prevent text from wrapping
-                strangely on small screens.
-            */
-            white-space: nowrap;
+            cursor: pointer;
+
+            z-index: 20;
+
+            box-shadow:
+
+                0 0 15px
+                rgba(
+                    255,
+                    105,
+                    150,
+                    0.4
+                );
+
+            transition:
+
+                opacity 0.6s ease,
+
+                transform 0.6s ease;
         }
-
 
         #start-message.hide {
 
             opacity: 0;
+
+            transform:
+                translate(-50%, -50%)
+                scale(0.9);
+
+            pointer-events: none;
         }
 
+        #ending-screen {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: black;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            z-index: 50;
+        }
+
+        #ending-screen.show {
+
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+        #ending-photo {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            opacity: 1;
+        }
+
+        #ending-credits {
+            position: absolute;
+            right: 25px;
+            bottom: 20px;
+
+            color: white;
+            font-size: clamp(12px, 1.5vw, 18px);
+            line-height: 1.5;
+            text-align: right;
+
+            text-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.9),
+                0 0 5px rgba(0, 0, 0, 0.7);
+
+            z-index: 2;
+        }
+
+        @media (max-width: 600px) {
+
+            .heart-container {
+
+                width: 88vw;
+            }
+
+            #top-text {
+
+                top: 5%;
+
+                font-size:
+                    clamp(
+                        26px,
+                        8vw,
+                        42px
+                    );
+
+                letter-spacing: 1px;
+            }
+
+            #bottom-text {
+
+                bottom: 5%;
+
+                font-size:
+                    clamp(
+                        24px,
+                        7vw,
+                        40px
+                    );
+
+                letter-spacing: 1px;
+            }
+
+            .animated-word {
+
+                margin: 0 4px;
+            }
+
+            #friends-message {
+
+                width: 40%;
+
+                max-width: 160px;
+
+                font-size:
+                    clamp(
+                        10px,
+                        3vw,
+                        16px
+                    );
+
+                line-height: 1.35;
+            }
+
+            #start-message {
+
+                width: 80%;
+
+                font-size: 17px;
+            }
+        }
 
     </style>
 
 </head>
 
-
 <body>
 
+    <img
+        id="background-photo"
+        src="birthday-background.jpg"
+        alt=""
+    >
 
-    <!-- =========================
-         START MESSAGE
-    ========================= -->
+    <div id="background-overlay"></div>
+
+    <div id="floating-hearts"></div>
 
     <div id="start-message">
-        Click anywhere ❤️
-    </div>
 
-
-
-    <!-- =========================
-         HEART CONTAINER
-    ========================= -->
-
-    <div class="heart-container">
-
-
-        <!-- =========================
-             VIDEO
-        ========================= -->
-
-        <video
-            id="heart-video"
-            src="video.mp4"
-            loop
-            playsinline
-            preload="auto"
-        ></video>
-
-
-
-        <!-- =========================
-             HEART SVG
-        ========================= -->
-
-        <svg
-            id="heart-svg"
-            viewBox="0 0 500 500"
-            preserveAspectRatio="xMidYMid meet"
-        >
-
-
-            <!--
-                =========================
-                VIDEO CLIPPING
-                =========================
-
-                IMPORTANT:
-
-                The coordinates here are
-                normalized from 0 to 1.
-
-                This allows the heart shape
-                to scale with the video on
-                BOTH desktop and mobile.
-            -->
-
-            <defs>
-
-                <clipPath
-                    id="heartClip"
-                    clipPathUnits="objectBoundingBox"
-                >
-
-                    <path
-                        d="
-                            M 0.5 0.3
-
-                            C 0.36 0.14,
-                              0.12 0.20,
-                              0.12 0.42
-
-                            C 0.12 0.60,
-                              0.30 0.70,
-                              0.50 0.88
-
-                            C 0.70 0.70,
-                              0.88 0.60,
-                              0.88 0.42
-
-                            C 0.88 0.20,
-                              0.64 0.14,
-                              0.50 0.30
-
-                            Z
-                        "
-                    />
-
-                </clipPath>
-
-            </defs>
-
-
-
-            <!-- =========================
-                 HEART OUTLINE
-            ========================= -->
-
-            <path
-                id="heart"
-                d="
-                    M 250 150
-
-                    C 180 70,
-                      60 100,
-                      60 210
-
-                    C 60 300,
-                      150 350,
-                      250 440
-
-                    C 350 350,
-                      440 300,
-                      440 210
-
-                    C 440 100,
-                      320 70,
-                      250 150
-                "
-            />
-
-
-
-            <!--
-                Hidden dot.
-            -->
-
-            <circle
-                id="dot"
-                r="8"
-                cx="250"
-                cy="150"
-            />
-
-
-        </svg>
+        Click here for your gift ❤️
 
     </div>
 
+    <div class="main-content">
 
+        <div
+            id="top-text"
+            class="birthday-text"
+        ></div>
+
+        <div class="heart-container">
+
+            <video
+                id="heart-video"
+                src="birthday-video.mp4"
+                playsinline
+                preload="auto"
+            ></video>
+
+            <div id="friends-message">
+
+                From your jusang friends
+
+                <br>
+
+                (Eunice, Risha,
+
+                <br>
+
+                Jonah, and Sarai)
+
+            </div>
+
+            <svg
+                id="heart-svg"
+                viewBox="0 0 500 500"
+                preserveAspectRatio="xMidYMid meet"
+            >
+
+                <defs>
+
+                    <clipPath
+                        id="heartClip"
+                        clipPathUnits="objectBoundingBox"
+                    >
+
+                        <path
+                            d="
+                                M 0.5 0.3
+
+                                C 0.36 0.14,
+                                  0.12 0.20,
+                                  0.12 0.42
+
+                                C 0.12 0.60,
+                                  0.30 0.70,
+                                  0.50 0.88
+
+                                C 0.70 0.70,
+                                  0.88 0.60,
+                                  0.88 0.42
+
+                                C 0.88 0.20,
+                                  0.64 0.14,
+                                  0.50 0.30
+
+                                Z
+                            "
+                        />
+
+                    </clipPath>
+
+                </defs>
+
+                <path
+                    id="heart"
+                    d="
+                        M 250 150
+
+                        C 180 70,
+                          60 100,
+                          60 210
+
+                        C 60 300,
+                          150 350,
+                          250 440
+
+                        C 350 350,
+                          440 300,
+                          440 210
+
+                        C 440 100,
+                          320 70,
+                          250 150
+                    "
+                />
+
+            </svg>
+
+        </div>
+
+        <div
+            id="bottom-text"
+            class="birthday-text"
+        ></div>
+
+    </div>
+
+    <div id="ending-screen">
+        <img id="ending-photo" src="ending-photo.jpg" alt="">
+
+        <div id="ending-credits">
+            video credits: riri<br>
+            source code: nini
+        </div>
+    </div>
+
+    <audio
+        id="fart-sound"
+        src="fart.mp3"
+        preload="auto"
+    ></audio>
 
     <script>
 
-
-        // =========================
-        // GET ELEMENTS
-        // =========================
-
         const heart =
-            document.getElementById("heart");
-
-        const dot =
-            document.getElementById("dot");
+            document.getElementById(
+                "heart"
+            );
 
         const video =
-            document.getElementById("heart-video");
+            document.getElementById(
+                "heart-video"
+            );
 
         const startMessage =
-            document.getElementById("start-message");
+            document.getElementById(
+                "start-message"
+            );
 
+        const friendsMessage =
+            document.getElementById(
+                "friends-message"
+            );
 
+        const topText =
+            document.getElementById(
+                "top-text"
+            );
 
-        // =========================
-        // HEART PATH LENGTH
-        // =========================
+        const bottomText =
+            document.getElementById(
+                "bottom-text"
+            );
+
+        const backgroundPhoto =
+            document.getElementById(
+                "background-photo"
+            );
+
+        const backgroundOverlay =
+            document.getElementById(
+                "background-overlay"
+            );
+
+        const floatingHearts =
+            document.getElementById(
+                "floating-hearts"
+            );
+
+        const endingScreen =
+            document.getElementById(
+                "ending-screen"
+            );
+
+        const fartSound =
+            document.getElementById(
+                "fart-sound"
+            );
 
         const pathLength =
             heart.getTotalLength();
 
+        heart.style.strokeDasharray =
+            pathLength;
 
+        heart.style.strokeDashoffset =
+            pathLength;
 
-        // =========================
-        // ANIMATION SETTINGS
-        // =========================
-
-        const duration = 4000;
+        const heartDuration = 4000;
 
         let startTime = null;
 
+        let animationStarted = false;
 
+        function createBirthdayText() {
 
-        // =========================
-        // HEART ANIMATION
-        // =========================
+            topText.innerHTML = "";
 
-        function animate(timestamp) {
+            bottomText.innerHTML = "";
 
+            const topWords = [
 
-            if (!startTime) {
+                "HAPPY",
 
-                startTime = timestamp;
+                "22ND",
+
+                "BIRTHDAY"
+
+            ];
+
+            const bottomWords = [
+
+                "CARLA",
+
+                "AND",
+
+                "KAREN"
+
+            ];
+
+            topWords.forEach(
+                (word, index) => {
+
+                    const span =
+                        document.createElement(
+                            "span"
+                        );
+
+                    span.className =
+                        "animated-word";
+
+                    span.textContent =
+                        word;
+
+                    topText.appendChild(
+                        span
+                    );
+
+                    setTimeout(
+                        () => {
+
+                            span.classList.add(
+                                "show"
+                            );
+
+                        },
+                        index * 400
+                    );
+
+                }
+            );
+
+            bottomWords.forEach(
+                (word, index) => {
+
+                    const span =
+                        document.createElement(
+                            "span"
+                        );
+
+                    span.className =
+                        "animated-word";
+
+                    span.textContent =
+                        word;
+
+                    bottomText.appendChild(
+                        span
+                    );
+
+                    setTimeout(
+                        () => {
+
+                            span.classList.add(
+                                "show"
+                            );
+
+                        },
+                        (index + 3) * 400
+                    );
+
+                }
+            );
+
+        }
+
+        function createFloatingHearts() {
+
+            const numberOfHearts = 100;
+
+            for (
+                let i = 0;
+                i < numberOfHearts;
+                i++
+            ) {
+
+                const heartElement =
+                    document.createElement(
+                        "div"
+                    );
+
+                heartElement.className =
+                    "floating-heart";
+
+                heartElement.textContent =
+                    "♥";
+
+                heartElement.style.left =
+                    Math.random() * 100 + "%";
+
+                const size = 30 + Math.random() * 50;
+
+                heartElement.style.fontSize =
+                    size + "px";
+
+                const duration =
+                    7 +
+                    Math.random() * 10;
+
+                heartElement.style.animationDuration =
+                    duration + "s";
+
+                const delay =
+                    Math.random() * 12;
+
+                heartElement.style.animationDelay =
+                    delay + "s";
+
+                heartElement.style.opacity =
+                    0.3 +
+                    Math.random() * 0.5;
+
+                floatingHearts.appendChild(
+                    heartElement
+                );
 
             }
 
+        }
 
-            // Calculate progress
+        function animateHeart(timestamp) {
+
+            if (!startTime) {
+
+                startTime =
+                    timestamp;
+            }
+
+            const elapsed =
+                timestamp -
+                startTime;
 
             let progress =
-                (timestamp - startTime) / duration;
-
+                elapsed /
+                heartDuration;
 
             if (progress > 1) {
 
                 progress = 1;
-
             }
 
-
-
-            // =========================
-            // DRAW HEART
-            // =========================
-
-            heart.style.strokeDasharray =
-                pathLength;
-
             heart.style.strokeDashoffset =
-                pathLength * (1 - progress);
-
-
-
-            // =========================
-            // DOT POSITION
-            // =========================
-
-            const point =
-                heart.getPointAtLength(
-                    pathLength * progress
-                );
-
-
-            dot.setAttribute(
-                "cx",
-                point.x
-            );
-
-
-            dot.setAttribute(
-                "cy",
-                point.y
-            );
-
-
-
-            // =========================
-            // CONTINUE
-            // =========================
+                pathLength *
+                (1 - progress);
 
             if (progress < 1) {
 
-                requestAnimationFrame(animate);
+                requestAnimationFrame(
+                    animateHeart
+                );
 
             }
+
             else {
 
                 heartFinished();
@@ -483,100 +1060,161 @@
 
         }
 
-
-
-        // =========================
-        // HEART FINISHED
-        // =========================
-
         function heartFinished() {
 
+            setTimeout(
+                () => {
 
-            setTimeout(() => {
+                    friendsMessage.classList.add(
+                        "show"
+                    );
 
+                    setTimeout(
+                        () => {
 
-                /*
-                    Restart video.
-                */
+                            friendsMessage.classList.remove(
+                                "show"
+                            );
 
-                video.currentTime = 0;
+                            setTimeout(
+                                () => {
 
+                                    video.currentTime = 0;
 
-                /*
-                    Turn sound on.
-                */
+                                    video.volume = 1;
 
-                video.volume = 1;
+                                    backgroundPhoto.classList.add(
+                                        "show"
+                                    );
 
+                                    backgroundOverlay.classList.add(
+                                        "show"
+                                    );
 
-                /*
-                    Fade video in.
-                */
+                                    floatingHearts.classList.add(
+                                        "show"
+                                    );
 
-                video.classList.add("show");
+                                    video.classList.add(
+                                        "show"
+                                    );
 
+                                    video.play().catch(
+                                        error => {
 
-            }, 500);
+                                            console.log(
+                                                "Video playback error:",
+                                                error
+                                            );
+
+                                        }
+                                    );
+
+                                },
+                                800
+                            );
+
+                        },
+                        2000
+                    );
+
+                },
+                300
+            );
 
         }
 
+        video.addEventListener(
+            "ended",
+            () => {
 
+                backgroundPhoto.classList.remove(
+                    "show"
+                );
 
-        // =========================
-        // FIRST CLICK
-        // =========================
+                backgroundOverlay.classList.remove(
+                    "show"
+                );
 
-        document.body.addEventListener(
+                floatingHearts.classList.remove(
+                    "show"
+                );
+
+                video.classList.remove(
+                    "show"
+                );
+
+                endingScreen.classList.add(
+                    "show"
+                );
+
+                fartSound.currentTime = 0;
+
+                fartSound.volume = 1;
+
+                fartSound.play().catch(
+                    error => {
+
+                        console.log(
+                            "Fart sound playback error:",
+                            error
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+        startMessage.addEventListener(
             "click",
             () => {
 
+                if (animationStarted) {
 
-                /*
-                    Hide message.
-                */
+                    return;
+                }
 
-                startMessage.classList.add("hide");
+                animationStarted = true;
 
+                startMessage.classList.add(
+                    "hide"
+                );
 
+                createBirthdayText();
 
-                /*
-                    Show heart.
-                */
-
-                heart.classList.add("start");
-
-
-
-                /*
-                    Start video silently
-                    because the browser needs
-                    a user interaction before
-                    allowing media playback.
-                */
+                createFloatingHearts();
 
                 video.volume = 0;
 
                 video.currentTime = 0;
 
-                video.play();
+                video.play().catch(
+                    error => {
 
+                        console.log(
+                            "Silent video preload:",
+                            error
+                        );
 
+                    }
+                );
 
-                /*
-                    Start heart animation.
-                */
+                heart.classList.add(
+                    "start"
+                );
 
-                requestAnimationFrame(animate);
+                startTime = null;
 
+                requestAnimationFrame(
+                    animateHeart
+                );
 
-            },
-            {
-                once: true
             }
         );
-
 
     </script>
 
 </body>
+
 </html>
